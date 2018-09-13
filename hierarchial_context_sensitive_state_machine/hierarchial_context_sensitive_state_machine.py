@@ -360,6 +360,6 @@ def visit(node, graph, indents):
 		ii += 1
 
 
-	#console.log(getIndents(indents), '1state machine is finished', '|'+ state + '|', case_)
-	#console.log(getIndents(indents), 'exit visit', node)
-	#console.log(graph)
+	#print(getIndents(indents), '1state machine is finished', '|'+ state + '|', case_)
+	#print(getIndents(indents), 'exit visit', node)
+	#print(graph)
