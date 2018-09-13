@@ -451,6 +451,13 @@ vars = {
 
 
 		# current state -> [current_context [list of (next_state, next_context)]]
+
+		#text template:
+		#	['next', [['0', [[], []]]]],
+		#	['children',  [['0', [[]]]]],
+		#	['functions', [['0', returnTrue ]]]]],
+		
+
 		['split' , [
 			['next', [['0', [['validate','0'], ['invalid','0']]]]],
 			['children',  [['0', [['char','0']]]]],
