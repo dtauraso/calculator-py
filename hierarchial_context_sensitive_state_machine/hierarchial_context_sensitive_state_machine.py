@@ -181,7 +181,7 @@ def printLevels(graph, state, case_, indents, m, chosen_level):
 def printLevelsBounds(graph, state, case_, indents, m, input_length, chosen_start_level, chosen_end_level):
 
 
-	print(getIndents(indents), '('+ state + ',' , case_ + ',', 'f=' + graph['node_graph2'][state]['functions'][case_].__name__ + ',', str(indents) + ')')#, '|' + graph['input'][m] + '|'/*,'i ='*/, m/*, input_length*/)
+	print(getIndents(indents), '('+  '\'' + state + '\'' + ',' , case_ + ',', 'f=' + graph['node_graph2'][state]['functions'][case_].__name__ + ',', str(indents) + ')')#, '|' + graph['input'][m] + '|'/*,'i ='*/, m/*, input_length*/)
 		#console.log()
 
 
@@ -194,11 +194,11 @@ def printVarStore(graph):
 	return '|' + graph['input'][m] + '|'
 
 
-def visit(node, graph, indents):
+def visit(node, graph, indents, debug):
 	# assume graph is nested lists
 	# does depth first tranversal for each subgraph(each subgraph is a state name that has children)
 	# does breath first traversal for within each subgraph
-
+	#print("got here")
 	graph['node_graph2'] = od([ makedTupleOfOrderedDicts(a) for a in graph['node_graph2']])
 	x = node[0]
 	y = node[1]
@@ -233,7 +233,11 @@ def visit(node, graph, indents):
 			#print('next_states', next_states)
 			state = next_states[j][0]
 			case_ = next_states[j][1]
-			#print('|' + state + '|', case_)
+			#print(cases)
+			# for same next state at multiple cases
+			#for case__ in cases:
+			#	case_ = case__
+				#print('|' + state + '|', case_)
 
 			maybe_parent = graph['node_graph2'][ state ]['children'][ case_ ]
 			did_function_pass = graph['node_graph2'][state]['functions'][case_]([state, case_], graph)
@@ -242,15 +246,15 @@ def visit(node, graph, indents):
 				#print('next states', graph['node_graph2'][state]['next'][case_])
 				#print(maybe_parent)
 
-				if (state == 'error'):
+				#if (state == 'error'):
 
-					print('you have invalid input')
-					exit()
+				#	print('you have invalid input')
+				#	exit()
 
 				# this case is for getting the children from the parent
 				# needs to always check before the isParent
 				if (hasParent(graph, state, case_)):
-
+					# x = (lowest_bottom, indent_number)
 					# push the state to the bottom if bottom happens to be one of state's parents
 					# only checks the state and not the case
 					bottom_state = bottom[0].child[0]
@@ -273,6 +277,7 @@ def visit(node, graph, indents):
 
 				# for when passing the current state(it is in the current next states) has a child(called next states)
 				if (isParent(maybe_parent)):
+					# x = (lowest_bottom, next_states)
 					#print('here')
 					# add passing state horizontally
 					bottom[0].child = [state, case_]
@@ -286,25 +291,29 @@ def visit(node, graph, indents):
 
 						next_states.append(children[i])
 
+					if debug:
 
-					m = graph['i']
-					printLevelsBounds(graph, state, case_, indents, m, len(graph['input']), 0, -1)
+						m = graph['i']
+						printLevelsBounds(graph, state, case_, indents, m, len(graph['input']), 0, -1)
 
 
 
 
 				# for when passing the current state(it is in the current next states) does not have a child but has neighbor states(called next states)
 				else:
-
+					# x = (next_states)
+					# x_total = (lowest_bottom, next_states, indent_number)
 					# there is a problem with how dict_items is being used
 
 					#print(graph['node_graph2'][state]['next'])
 					next_states = [list(a) for a in graph['node_graph2'][state]['next'][case_].items()]
-					m = graph['i']
+
+
 					next_states = makeNextStates(next_states)
 					#print('next_states', next_states)
-
-					printLevelsBounds(graph, state, case_, indents, m, len(graph['input']), 0, -1)
+					if debug:
+						m = graph['i']
+						printLevelsBounds(graph, state, case_, indents, m, len(graph['input']), 0, -1)
 					# add passing state horizontally
 					bottom[0].child = [state, case_]
 
@@ -316,11 +325,14 @@ def visit(node, graph, indents):
 
 
 			j += 1
-
-
+			#if state_changed:
+			#	break
 
 		#printStack(bottom)
+		# hit end state at any level below top level
 		if (len(next_states) == 0):
+
+			# x_total = (lowest_bottom, next_states, indent_number)
 
 			# have linked list representing the stack
 			# first item is in bottom[0]
@@ -342,7 +354,6 @@ def visit(node, graph, indents):
 			'''
 			/*
 			if (tracker == null)
-
 				console.log('done runing machine')
 			*/
 			'''
@@ -351,11 +362,16 @@ def visit(node, graph, indents):
 		#print( )
 		# if all fail then all will be rerun unless this condition is here
 		if(not state_changed and len(next_states) > 0):
+			# all next_states failed so this level cannot be finished
+			# travel up like before but choose the next child after the tracker
 
+			print('error at ')
+			print(getIndents(indents), next_states, 'on')
+			print(getIndents(indents), '('+  '\'' + state + '\'' + ',' , case_ + ',', 'f=' + graph['node_graph2'][state]['functions'][case_].__name__ + ',', str(indents) + ')')
+			break
 
-
-			print(next_states, 'have failed so your state machine is incomplete')
-			exit()
+			#print(next_states, 'have failed so your state machine is incomplete')
+			#exit()
 
 		ii += 1
 
