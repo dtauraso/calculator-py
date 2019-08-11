@@ -568,6 +568,6 @@ vars = {
 
 #calculator_reducer = createStore(nodeReducer4)
 # -1 so highest level of graph isn't printed with an indent
-hcssm.visit(['split', '0'], vars, 0)
+hcssm.visit(['split', '0'], vars, 0, 1)
 
 print('done w machine')
