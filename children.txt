@@ -1,0 +1,38 @@
+// level 1
+
+/*  start_0  */       empty            empty            empty         empty
+/*  names_0*/         name_0           empty            empty         empty
+/*	attributes_0 */   name_1           empty            empty         empty
+/* EOF_0 */           empty            empty            empty         empty
+
+
+// level 2
+/*  name_0*/          any_string_0     empty            empty         empty
+/*  tab_increase_0*/  empty            empty            empty         empty
+
+/* name_1 */          \"children\"_0   \"next\"_0       \"parents\"_0 \"functions\"_0
+/* "children"_0 */    empty            empty            empty         empty
+/* tab_increase_1 */  empty            empty            empty         empty
+
+/* next_0 */          function_0       next_state_0     empty         empty
+/* tab_reduction_0 */ empty            empty            empty         empty
+
+// level 3
+/* any_string_0 */    empty            empty            empty         empty
+/* "children"_1 */    empty            empty            empty         empty
+/* "next"_0 */        empty            empty            empty         empty
+/* "parents"_0 */     empty            empty            empty         empty
+/* "functions"_0 */   empty            empty            empty         empty
+/* function */        empty            empty            empty         empty
+/* next_state_0 */    empty            empty            empty         empty
+
+// level 4
+/* child */           empty            empty            empty         empty
+/* next_state_1 */    child_0          next_state_2     parent_0      empty
+/* parent_0 */        empty            empty            empty         empty
+/* next_state_2*/     empty            empty            empty         empty
+
+/* ( */               empty            empty            empty         empty
+/* any_string_1 */    empty            empty            empty         empty
+/* ' ' */             empty            empty            empty         empty
+/* ) */               empty            empty            empty         empty

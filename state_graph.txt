@@ -1,0 +1,55 @@
+State_name
+	Graph_context_a
+		State_Context_a
+			Children
+				State_name
+					Graph_context_a
+						State_Context_a
+							Children
+
+			Next
+				State_name Graph_context_a State_Context_a
+				State_name Graph_context_a State_Context_a
+				State_name Graph_context_a State_Context_a
+				State_name Graph_context_a State_Context_a
+			Parents
+
+			Functions
+				Name
+		State_Context_b
+inverted tree
+backtrack to find names to classify(state name list)
+the catagory names are the boundaries for backtracking
+push, backtrack
+	backtrack collection result cases:
+		1 item = state tuple
+			1 string = function name
+		n items = state list
+small state machine diagram
+state_name -> catagory
+catagory -> state_name, state_tuple
+state_tuple -> state_name, category
+
+ith state, ith max tab, ith last catagory visited
+while != '\0'
+	collect name
+	loop:
+		enter, tab increase unless next word == "Children"
+		collect each word found
+	save all words as the state name
+
+
+	in a catagory, but have to leave to line 20
+	in a catagory, and currently staying in the catagory
+	not in a catagory, but have to get back to last ith catagory visited
+
+	need catagory loops
+	need a routine for Children, next, parents, functions(categories)
+		collect
+		enter, tab increase
+		next word
+		if just a space
+			loop for all states: get word until hit enter
+
+		else
+			done with category
