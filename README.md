@@ -1,7 +1,7 @@
 # calculator-py
 
 
-This program uses a hierarchical context sensitive state machine to process a graph representing the control flow.
+This program uses a hierarchial context sensitive state machine(contextual state chart) to process a graph representing the control flow.
 The control flow describes how to evaluate a arithmatic expression.
 
 
